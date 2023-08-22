@@ -7,18 +7,18 @@ import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Nav = () => {
-    const isUserLoggedIn = true;
+    const { data: session } = useSession();
 
     const [providers, setProviders] = useState(null);
     const [toggleDropdown, setToggleDropdown] = useState(false);
 
     useEffect(() => {
-        const setProvider = async () => {
+        const setUpProviders = async () => {
             const response = await getProviders();
             setProviders(response);
         };
 
-        setProvider();
+        setUpProviders();
     }, []);
 
     return (
@@ -40,7 +40,7 @@ const Nav = () => {
 
             {/* Desktop Navigation */}
             <div className="sm:flex hidden">
-                {isUserLoggedIn ? (
+                {session?.user ? (
                     <div className="flex gap-3 md:gap-5">
                         <Link
                             className="black_btn"
@@ -70,7 +70,7 @@ const Nav = () => {
                 ) : (
                     <>
                         {providers && 
-                          Object.values(providers.map((provider) => (
+                          Object.values(providers).map((provider) => (
                             <button
                                 type="button"
                                 key={provider.name}
@@ -79,15 +79,14 @@ const Nav = () => {
                             >
                                 Sign In
                             </button>
-                          )))
-                        }
+                        ))}
                     </>
                 )}
             </div>
 
             {/* Mobile Navigation */}
             <div className="sm:hidden flex relative">
-                {isUserLoggedIn ? (
+                {session?.user ? (
                     <div className="flex">
                         <Image
                             width={37}
@@ -138,17 +137,16 @@ const Nav = () => {
                 ) : (
                     <>
                         {providers && 
-                          Object.values(providers.map((provider) => (
+                          Object.values(providers).map((provider) => (
                             <button
                                 type="button"
                                 key={provider.name}
                                 className="black_btn"
-                                onClick={() => signIn(provider.id)}
+                                onClick={() => {signIn(provider.id)}}
                             >
                                 Sign In
                             </button>
-                          )))
-                        }
+                        ))}
                     </>
                 )}
             </div>
