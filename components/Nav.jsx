@@ -63,7 +63,7 @@ const Nav = () => {
                                 height={37}
                                 alt="Profile"
                                 className="rounded-full"
-                                src="/assets/images/logo.svg"
+                                src={session?.user.image}
                             />
                         </Link>
                     </div>
@@ -93,7 +93,7 @@ const Nav = () => {
                             height={37}
                             alt="Profile"
                             className="rounded-full"
-                            src="/assets/images/logo.svg"
+                            src={session?.user.image}
                             onClick={() => {
                                 setToggleDropdown((prev) => !prev);
                             }}
