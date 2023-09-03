@@ -1,23 +1,3 @@
-# Features To Implement
-[] Implement Search
-    - Search by prompt 
-    - Search by tag
-    - Search by username
-   
-[] Implement Click on Tag
-
-[1,2] Code will be implemented in FEED component
-- add search states (search text, timeout, results)
-- filter prompt based on those queries
-- handle search change
-- function of the function tag change
-
-[] Implement View other profiles
-- create a new folder/file in the profile directory
-- similar to the profile page - fetch post from a diff user and use the same Profile component
-
----
-
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
