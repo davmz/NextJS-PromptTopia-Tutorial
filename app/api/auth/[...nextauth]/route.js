@@ -22,25 +22,25 @@ const handler = NextAuth({
             session.user.id = sessionUser._id.toString();
             return session; 
         },
-    
-        async signIn({ profile }) {
+
+        async signIn({ user, account, profile, email, credentials }) {
             try {
                 await connectToDB();
-    
+            
                 // check if a user already exists
-                const userExists = await User.findOne({
-                    email: profile.email
+                const userExists = await User.findOne({ 
+                    email: profile?.email
                 });
-    
-                // if not, create a new user
-                if (!userExists) {
+
+                // if not, create a new document and save user in MongoDB
+                if (userExists === null) {
                     await User.create({
-                        email: profile.email,
-                        username: profile.name.replace(" ", "").toLowerCase(),
-                        image: profile.picture
-                    });
+                        email: profile?.email,
+                        username: profile?.name.replace(/\s+/g, '').toLowerCase(),
+                        image: user.image
+                    })
                 }
-    
+        
                 return true;
             } catch (error) {
                 console.log(error);
