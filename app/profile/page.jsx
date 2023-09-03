@@ -22,6 +22,9 @@ const MyProfile = () => {
         };
 
         if (session?.user.id) fetchPosts();
+
+        // Return non users to home page
+        if (!session?.user) router.push("/");
     }, []);
 
     const handleEdit = (post) => {
